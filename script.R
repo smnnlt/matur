@@ -7,18 +7,16 @@
 # script released under an MIT license
 
 # load packages
-library(readxl)  # data import
 library(ggplot2) # visualization
 library(lme4)    # multilevel modeling
 library(purrr)   # functional programming
 
 # read data
-d <- read_excel("data/data.xlsx")
+d <- read.csv("data/data.csv")
 # rename columns
 colnames(d)[7] <- "dAPHV"
 colnames(d)[9:13] <- c("0-10m", "10-30m", "0-30m", "30-60m", "0-60m")
-# convert from tibble to data.frame
-d <- as.data.frame(d)
+colnames(d)[20] <- "12MR"
 
 ## PART 1: exploratory analysis-------------------------------------------------
 

@@ -2,7 +2,7 @@
 
 ## Variables
 
-For more details on the methodology measuring/calculating the variables, please refer to the manuscript.
+For more details on the methodology for measuring/calculating the variables, please refer to the manuscript.
 
 #### Anthropometrics
 
@@ -12,22 +12,22 @@ For more details on the methodology measuring/calculating the variables, please 
 -   `BH`: Body height (in cm) 
 -   `SH`: Sitting height (in cm)
 
-##### Age
+#### Age
 
 All age variables are given in years as a continuous value. 
 -   `CA`: Chronological age 
 -   `Dif APHV`: Difference to age at peak velocity, i.e., `CA` minus `APHV`. Used as a proxy of the biological age. 
 -   `APHV`: Age at peak height velocity. Calculated from `CA`, `BM`, `BH`, and `SH` using the Mirwald method.
 
-##### Performance measures
+#### Performance measures
 
-Sprint values to not need to add up, because the best times can be from different trials. 
-For the sprint variables, lower values indicate better performance (faster sprinting times, measured in s). 
--   `S 0-10m`: 60m sprint, first 10 meters 
--   `S 10-30m`: 60m sprint, meter 10-30 
--   `S 0-30m`: 60m sprint, first half 
--   `S 30-60m`: 60m sprint, second half 
--   `S 0-60m`: 60m sprint, full distance 
+Sprint values do not need to add up, because the best times can be from different trials. 
+For the sprint variables, lower values indicate better performance (faster sprinting times). 
+-   `S 0-10m`: 60m sprint, first 10 meters (in s)
+-   `S 10-30m`: 60m sprint, meter 10-30 (in s) 
+-   `S 0-30m`: 60m sprint, first half (in s)
+-   `S 30-60m`: 60m sprint, second half (in s)
+-   `S 0-60m`: 60m sprint, full distance (in s) 
 -   `FOST`: Forward shot throw distance (in m) 
 -   `BOST`: Backward overhead shot throw distance (in m) 
 -   `TH`: Triple hop distance (in m) 

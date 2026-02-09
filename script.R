@@ -40,6 +40,9 @@ ggplot(d, aes(CA, BOST)) +
 
 # calculate residuals for biological age
 d$dAPHV_resid <- resid(lm(dAPHV ~ CA + Sex, data = d))
+d$APHV_resid <- NA
+d$APHV_resid[d$Sex == "m"] <- mean(d$APHV[d$Sex == "m"]) - d$APHV[d$Sex == "m"]
+d$APHV_resid[d$Sex == "f"] <- mean(d$APHV[d$Sex == "f"]) - d$APHV[d$Sex == "f"]
 
 # function to get model estimates
 run_mod <- function(param, data = d, plot = FALSE) {
@@ -57,7 +60,7 @@ run_mod <- function(param, data = d, plot = FALSE) {
   # do not use percentage performance as an outcome, as this leads to boundary 
   # fit. Instead transform model results to percentage later (should give
   # similar results)
-  o <- lmerTest::lmer(out ~ CA * Sex + dAPHV_resid + (1|ID), data = data)
+  o <- lmerTest::lmer(out ~ CA * Sex + APHV_resid + (1|ID), data = data)
   es <- summary(o)$coefficients
   ci <- confint(o)
   # calculate standardized coefficients
@@ -68,15 +71,15 @@ run_mod <- function(param, data = d, plot = FALSE) {
   m <- mean(data$out, na.rm = TRUE)
   df <- data.frame(
     name = param,
-    es = es["dAPHV_resid", "Estimate"] / m,
-    ci_low = ci["dAPHV_resid",1] / m,
-    ci_up = ci["dAPHV_resid",2] / m,
+    es = es["APHV_resid", "Estimate"] / m,
+    ci_low = ci["APHV_resid",1] / m,
+    ci_up = ci["APHV_resid",2] / m,
     beta = b
   )
   
   # option to create scatter plot
   if (plot) {
-    ggplot(aes(dAPHV_resid, out_pct), data = data) +
+    ggplot(aes(APHV_resid, out_pct), data = data) +
       geom_hline(yintercept = 0, color = "grey40") +
       geom_vline(xintercept = 0, color = "grey40") +
       geom_point() +
@@ -130,13 +133,15 @@ ggplot(l, aes(x = reorder(name, es, decreasing = TRUE), y = es)) +
   geom_text(aes(y = ci_up + 0.013, label = beta_label), size = 6) +
   scale_x_discrete(name = "Variable") +
   scale_y_continuous(
-    name = "Performance difference per additional\n year of biological age", 
+    name = "Performance difference per 1-year\n increase in maturity offset", 
     labels = scales::label_percent(),
     breaks = seq(from = -0.05, to = 0.15, by = 0.05)) +
   theme_classic(base_size = 14) +
   theme(
     panel.grid.major.y = element_line(),
-    #panel.grid.minor.y = element_line()
+    #panel.grid.minor.y = element_line
+    axis.text.x = element_text(size = 9),
+    axis.text.y = element_text(size = 9),
   )
 
 # save plot
